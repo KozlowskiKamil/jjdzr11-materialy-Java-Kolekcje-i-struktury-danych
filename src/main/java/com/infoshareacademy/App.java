@@ -11,17 +11,14 @@ import java.util.*;
 public class App {
     public static void main( String[] args ) {
 
-        Engine engine1 = new Engine(100, 1000);
-        Engine engine2 = new Engine(200, 2000);
-        Engine engine3 = new Engine(100, 1000);
+        List<String> strings = new ArrayList<>();
+        strings.add("info");
+        strings.add("Share");
+        strings.add("Academy");
 
-        List<Engine> engines = new ArrayList<>();
-        engines.add(engine1);
-        engines.add(engine2);
-        engines.add(engine3);
-
-        for (Engine engine : engines) {
-            System.out.println(engine);
-        }
+        System.out.println(strings.contains("info"));
+        System.out.println(strings.contains("INFO"));
+        System.out.println(strings.indexOf("Academy"));
+        System.out.println(strings.indexOf("ISA"));
     }
 }
