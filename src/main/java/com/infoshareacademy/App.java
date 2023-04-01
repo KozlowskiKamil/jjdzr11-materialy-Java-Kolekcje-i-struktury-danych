@@ -10,26 +10,28 @@ import java.util.*;
 
 public class App {
     public static void main( String[] args ) {
-        Engine engine1 = EngineFactory.generateEngine();
-        Engine engine2 = EngineFactory.generateEngine();
-        Engine engine3 = new Engine(100, 1000);
-        Engine engine4 = new Engine(100, 1000);
 
-        Set<Engine> engines = copyTable(engine1, engine2, engine3, engine4);
-        System.out.println(engines.size());
-        for (Engine engine : engines) {
-            System.out.println(engine);
+        Car car1 = CarFactory.createRandomCar();
+        Car car2 = CarFactory.createRandomCar();
+        Car car3 = CarFactory.createRandomCar();
+        Car car4 = CarFactory.createRandomCar();
+        Car car5 = CarFactory.createRandomCar();
+
+        Car[] filterCars = filterCars(car1, car2, car3, car4, car5);
+        for (Car car : filterCars) {
+            System.out.println(car);
         }
     }
 
-    private static Set<Engine> copyTable(Engine... engines) {
-        //return new HashSet<>(Arrays.asList(engines));
+    private static Car[] filterCars(Car... cars) {
+        Car[] result = new Car[cars.length];
 
-        Set<Engine> result = new HashSet<>();
-
-        for (Engine engine : engines) {
-            result.add(engine);
+        for (int i = 0; i < cars.length; i++) {
+            if (!cars[i].getName().equals("Fiat")) {
+                result[i] = cars[i];
+            }
         }
+
         return result;
     }
 }
