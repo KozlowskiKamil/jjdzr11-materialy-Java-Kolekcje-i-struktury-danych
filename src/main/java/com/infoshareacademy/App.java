@@ -11,27 +11,17 @@ import java.util.*;
 public class App {
     public static void main( String[] args ) {
 
-        Car car1 = CarFactory.createRandomCar();
-        Car car2 = CarFactory.createRandomCar();
-        Car car3 = CarFactory.createRandomCar();
-        Car car4 = CarFactory.createRandomCar();
-        Car car5 = CarFactory.createRandomCar();
+        Engine engine1 = new Engine(100, 1000);
+        Engine engine2 = new Engine(200, 2000);
+        Engine engine3 = new Engine(100, 1000);
 
-        Car[] filterCars = filterCars(car1, car2, car3, car4, car5);
-        for (Car car : filterCars) {
-            System.out.println(car);
+        List<Engine> engines = new ArrayList<>();
+        engines.add(engine1);
+        engines.add(engine2);
+        engines.add(engine3);
+
+        for (Engine engine : engines) {
+            System.out.println(engine);
         }
-    }
-
-    private static Car[] filterCars(Car... cars) {
-        Car[] result = new Car[cars.length];
-
-        for (int i = 0; i < cars.length; i++) {
-            if (!cars[i].getName().equals("Fiat")) {
-                result[i] = cars[i];
-            }
-        }
-
-        return result;
     }
 }
