@@ -11,14 +11,27 @@ import java.util.*;
 public class App {
     public static void main( String[] args ) {
 
-        List<String> strings = new ArrayList<>();
-        strings.add("info");
-        strings.add("Share");
-        strings.add("Academy");
+        Car car1 = CarFactory.createRandomCar();
+        Car car2 = CarFactory.createRandomCar();
+        Car car3 = CarFactory.createRandomCar();
+        Car car4 = CarFactory.createRandomCar();
+        Car car5 = CarFactory.createRandomCar();
 
-        System.out.println(strings.contains("info"));
-        System.out.println(strings.contains("INFO"));
-        System.out.println(strings.indexOf("Academy"));
-        System.out.println(strings.indexOf("ISA"));
+        List<Car> filterCars = filterCars(car1, car2, car3, car4, car5);
+        for (Car car : filterCars) {
+            System.out.println(car);
+        }
+    }
+
+    private static List<Car> filterCars(Car... cars) {
+        List<Car> result = new ArrayList<>();
+
+        for (Car car : cars) {
+            if (!car.getName().equals("Fiat")) {
+                result.add(car);
+            }
+        }
+
+        return result;
     }
 }
