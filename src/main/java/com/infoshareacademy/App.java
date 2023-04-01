@@ -1,20 +1,27 @@
 package com.infoshareacademy;
 
 
+import com.infoshareacademy.factories.CarFactory;
+import com.infoshareacademy.model.Car;
+
 public class App {
     public static void main( String[] args ) {
 
-        Integer[] duplicatedValues = copyTable(1, 2, 3, 4, 5);
-        for (int i = 0; i < duplicatedValues.length; i++) {
-            System.out.println(duplicatedValues[i]);
+        Car car1 = CarFactory.createRandomCar();
+        Car car2 = CarFactory.createRandomCar();
+
+        Car[] duplicatedValues = copyTable(car1, car2);
+
+        for (Car duplicatedValue : duplicatedValues) {
+            System.out.println(duplicatedValue);
         }
     }
 
-    private static Integer[] copyTable(Integer... params) {
-        Integer[] result = new Integer[params.length];
+    private static Car[] copyTable(Car... params) {
+        Car[] result = new Car[params.length];
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = params[i] * 2;
+            result[i] = params[i];
         }
 
         return result;
