@@ -1,36 +1,41 @@
 package com.infoshareacademy;
 
 
-import com.infoshareacademy.factories.CarFactory;
-import com.infoshareacademy.model.Car;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class App {
     public static void main( String[] args ) {
 
-        Car car1 = CarFactory.createRandomCar();
-        Car car2 = CarFactory.createRandomCar();
-        Car car3 = CarFactory.createRandomCar();
-        Car car4 = CarFactory.createRandomCar();
-        Car car5 = CarFactory.createRandomCar();
+        Integer k1 = 1;
+        Integer k2 = 2;
+        Integer k3 = 3;
+        Integer k4 = 2;
 
-        List<Car> filterCars = filterCars(car1, car2, car3, car4, car5);
-        for (Car car : filterCars) {
-            System.out.println(car);
+        String v1 = "v1";
+        String v2 = "v2";
+        String v3 = "v2";
+        String v4 = "v4";
+
+        Map<Integer, String> map = new HashMap<>();
+        map.putIfAbsent(k1, v1);
+        map.putIfAbsent(k2, v2);
+        map.putIfAbsent(k3, v3);
+        map.putIfAbsent(k4, v4);
+
+        System.out.println(map);
+        System.out.println(map.keySet());
+        System.out.println(map.values());
+
+        for (Integer key : map.keySet()) {
+            String value = map.get(key);
+            System.out.println(key + " - " + value);
         }
-    }
 
-    private static List<Car> filterCars(Car... cars) {
-        List<Car> result = new ArrayList<>();
-
-        for (Car car : cars) {
-            if (!car.getName().equals("Fiat")) {
-                result.add(car);
-            }
+        Set<Map.Entry<Integer, String>> entries = map.entrySet();
+        for (Map.Entry entry : entries) {
+            System.out.println(entry);
         }
-
-        return result;
     }
 }
