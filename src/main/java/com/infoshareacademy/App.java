@@ -2,11 +2,10 @@ package com.infoshareacademy;
 
 
 import com.infoshareacademy.factories.CarFactory;
-import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Car;
-import com.infoshareacademy.model.Engine;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     public static void main( String[] args ) {
