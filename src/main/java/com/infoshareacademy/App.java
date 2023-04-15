@@ -1,28 +1,33 @@
 package com.infoshareacademy;
 
 
-import com.infoshareacademy.model.Engine;
+import com.infoshareacademy.factories.CarFactory;
+import com.infoshareacademy.model.Car;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class App {
     public static void main( String[] args ) {
-        Engine engine1 = new Engine(100, 1000);
-        Engine engine2 = new Engine(100, 1000);
-        Engine engine3 = new Engine(200, 2000);
+        Car car1 = CarFactory.createRandomCar();
+        Car car2 = CarFactory.createRandomCar();
+        Car car3 = CarFactory.createRandomCar();
+        Car car4 = CarFactory.createRandomCar();
+        car3.setName("Fiat");
+        car4.setName("Fiat");
 
-        Map<Integer, Engine> engines = groupByPower(engine1, engine2, engine3);
-        System.out.println(engines);
+        Map<String, Car> cars = groupByName(car1, car2, car3, car4);
+        for (String s : cars.keySet()) {
+            System.out.println(s + " : " + cars.get(s));
+        }
     }
 
-    private static Map<Integer, Engine> groupByPower(Engine... engines) {
-        Map<Integer, Engine> result = new HashMap<>();
+    private static Map<String, Car> groupByName(Car... cars) {
+        Map<String, Car> result = new HashMap<>();
 
-        for (Engine engine : engines) {
-            Integer power = engine.getPower();
-            result.put(power, engine);
+        for (Car car : cars) {
+            String name = car.getName();
+            result.put(name, car);
         }
         return result;
     }
