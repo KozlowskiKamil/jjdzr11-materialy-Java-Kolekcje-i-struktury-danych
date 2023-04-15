@@ -1,25 +1,29 @@
 package com.infoshareacademy;
 
 
+import com.infoshareacademy.model.Engine;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class App {
     public static void main( String[] args ) {
+        Engine engine1 = new Engine(100, 1000);
+        Engine engine2 = new Engine(100, 1000);
+        Engine engine3 = new Engine(200, 2000);
 
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "ISA");
-        map.put(2, "info");
-        map.put(3, "Share");
-        map.put(5, "Java");
-//        map.put(4, null);
+        Map<Integer, Engine> engines = groupByPower(engine1, engine2, engine3);
+        System.out.println(engines);
+    }
 
-        System.out.println(map);
-        System.out.println(map.get(4));
-        System.out.println(map.get(5));
-        System.out.println(map.containsKey(15));
-        System.out.println(map.containsValue("ISA"));
+    private static Map<Integer, Engine> groupByPower(Engine... engines) {
+        Map<Integer, Engine> result = new HashMap<>();
 
+        for (Engine engine : engines) {
+            Integer power = engine.getPower();
+            result.put(power, engine);
+        }
+        return result;
     }
 }
