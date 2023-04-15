@@ -4,6 +4,8 @@ import com.infoshareacademy.model.Car;
 import com.infoshareacademy.model.Color;
 import com.infoshareacademy.model.Engine;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CarFactory {
@@ -16,6 +18,14 @@ public class CarFactory {
         car.setEngine(generateEngine());
         car.setColor(generateColor());
         return car;
+    }
+
+    public static List<Car> createRandomCars(int amount) {
+        List<Car> result = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            result.add(createRandomCar());
+        }
+        return result;
     }
 
     private static String generateName() {
