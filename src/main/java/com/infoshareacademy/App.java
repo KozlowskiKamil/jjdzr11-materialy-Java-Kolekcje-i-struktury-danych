@@ -1,31 +1,26 @@
 package com.infoshareacademy;
 
 
-import com.infoshareacademy.comparators.CapacityComparator;
-import com.infoshareacademy.comparators.PowerComparator;
-import com.infoshareacademy.factories.CarFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoshareacademy.factories.EngineFactory;
-import com.infoshareacademy.model.Car;
 import com.infoshareacademy.model.Engine;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class App {
     public static void main( String[] args ) throws IOException {
-        Path pathToConfig = Path.of("src", "main", "resources", "config.properties");
+        Engine engine = EngineFactory.generateEngine();
+        System.out.println(engine);
 
-        System.out.println(pathToConfig.toString());
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(pathToConfig.toString()));
+        String json = objectMapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(engine);
+        System.out.println(json);
 
-        System.out.println(properties);
-        System.out.println(properties.get("version"));
-        System.out.println(properties.get("key"));
+        Engine fromJson = objectMapper.readValue(json, Engine.class);
+        System.out.println(fromJson);
+        System.out.println(engine.equals(fromJson));
     }
 }
