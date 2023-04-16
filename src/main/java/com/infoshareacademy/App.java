@@ -1,6 +1,7 @@
 package com.infoshareacademy;
 
 
+import com.infoshareacademy.comparators.CapacityComparator;
 import com.infoshareacademy.comparators.PowerComparator;
 import com.infoshareacademy.factories.CarFactory;
 import com.infoshareacademy.factories.EngineFactory;
@@ -25,6 +26,10 @@ public class App {
 
         System.out.println("sorted by engine power");
         Collections.sort(cars, new PowerComparator());
+        cars.forEach(System.out::println);
+
+        System.out.println("sorted by engine capacity");
+        Collections.sort(cars, new CapacityComparator());
         cars.forEach(System.out::println);
     }
 }
