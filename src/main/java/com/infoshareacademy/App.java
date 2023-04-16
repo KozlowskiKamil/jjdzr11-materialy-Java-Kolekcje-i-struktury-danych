@@ -8,28 +8,24 @@ import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Car;
 import com.infoshareacademy.model.Engine;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class App {
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws IOException {
+        Path pathToConfig = Path.of("src", "main", "resources", "config.properties");
 
-        List<Car> cars = CarFactory.createRandomCars(3);
-        cars.forEach(System.out::println);
+        System.out.println(pathToConfig.toString());
 
-        Collections.sort(cars);
-        System.out.println("sorted by color");
-        cars.forEach(System.out::println);
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(pathToConfig.toString()));
 
-        System.out.println("sorted by engine power");
-        Collections.sort(cars, new PowerComparator());
-        cars.forEach(System.out::println);
-
-        System.out.println("sorted by engine capacity");
-        Collections.sort(cars, new CapacityComparator());
-        cars.forEach(System.out::println);
+        System.out.println(properties);
+        System.out.println(properties.get("version"));
+        System.out.println(properties.get("key"));
     }
 }
