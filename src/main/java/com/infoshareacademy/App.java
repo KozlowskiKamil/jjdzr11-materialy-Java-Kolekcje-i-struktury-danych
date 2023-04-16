@@ -2,26 +2,31 @@ package com.infoshareacademy;
 
 
 import com.infoshareacademy.factories.CarFactory;
+import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Car;
+import com.infoshareacademy.model.Engine;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main( String[] args ) {
-//        List<Car> cars = CarFactory.createRandomCars(5);
-//        cars.forEach(System.out::println);
 
-        List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
+        List<Engine> engines = EngineFactory.generateEngines(4);
+        engines.forEach(System.out::println);
 
-        Iterator<Integer> iterator = numbers.iterator();
-
-        System.out.println(numbers);
-        while (iterator.hasNext()) {
-            Integer nextValue = iterator.next();
-            if (nextValue % 2 == 1) {
-                iterator.remove();
-            }
+        Map<Integer, List<Engine>> groupedEngines = new HashMap<>();
+        for (Engine engine : engines) {
+            Integer key = engine.getCapacity();
+            groupedEngines.putIfAbsent(key, new ArrayList<>());
+            groupedEngines.get(key).add(engine);
         }
-        System.out.println(numbers);
+
+        Map<Integer, List<Engine>> groupedByStream = engines.stream()
+                .collect(Collectors.groupingBy(Engine::getCapacity));
+
+        groupedEngines.forEach((k,v) -> System.out.println(k + " : " + v.size()));
+        System.out.println("----");
+        groupedByStream.forEach((k,v) -> System.out.println(k + " : " + v.size()));
     }
 }

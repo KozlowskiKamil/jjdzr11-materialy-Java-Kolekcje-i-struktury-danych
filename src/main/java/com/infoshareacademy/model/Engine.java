@@ -2,7 +2,7 @@ package com.infoshareacademy.model;
 
 import java.util.Objects;
 
-public class Engine {
+public class Engine implements Comparable<Engine> {
     private Integer power;
     private Integer capacity;
 
@@ -49,5 +49,17 @@ public class Engine {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public int compareTo(Engine o) {
+//        return this.power.compareTo(o.getPower());
+        if (this.power > o.getPower()) {
+            return 1;
+        } else if (this.power < o.getPower()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
