@@ -1,9 +1,14 @@
 package com.infoshareacademy.model;
 
+import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Engine implements Comparable<Engine> {
+    @XmlElement(name = "pow")
     private Integer power;
+//    @XmlTransient
     private Integer capacity;
 
     public Engine() {

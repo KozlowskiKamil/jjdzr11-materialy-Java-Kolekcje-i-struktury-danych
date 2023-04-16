@@ -1,0 +1,14 @@
+[
+  {
+    "power": 120,
+    "capacity": 3000
+  },
+  {
+    "power": 90,
+    "capacity": 4000
+  },
+  {
+    "power": 200,
+    "capacity": 3000
+  }
+]

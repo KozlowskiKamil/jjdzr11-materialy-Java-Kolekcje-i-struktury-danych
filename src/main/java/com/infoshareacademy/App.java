@@ -1,33 +1,35 @@
 package com.infoshareacademy;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Engine;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.Path;
 
 public class App {
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) throws IOException, JAXBException {
 
-        Engine engine1 = EngineFactory.generateEngine();
-        Engine engine2 = EngineFactory.generateEngine();
-        Engine[] engines = {engine1, engine2};
+        Engine engine = EngineFactory.generateEngine();
+        System.out.println(engine);
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setPrettyPrinting();
-        Gson gson = gsonBuilder.create();
+        JAXBContext context = JAXBContext.newInstance(Engine.class);
 
-        String json = gson.toJson(engines);
-        System.out.println(json);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        Engine[] fromJson = gson.fromJson(json, Engine[].class);
-        for (Engine engine : fromJson) {
-            System.out.println(engine);
-        }
+        marshaller.marshal(engine, System.out);
+
+        Path pathToXml = Path.of("src", "main", "resources", "engine.xml");
+        File file = new File(pathToXml.toString());
+
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        Engine engineFromXml = (Engine) unmarshaller.unmarshal(file);
+        System.out.println(engineFromXml);
     }
 }
