@@ -7,6 +7,7 @@ import com.infoshareacademy.model.Engine;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ZadaniaNowe {
 
@@ -94,6 +95,16 @@ public class ZadaniaNowe {
         Map<Integer, List<Car>> integerListMap = Zad12(carsList);
         System.out.println("integerListMap = " + integerListMap);
 
+        //metoda na stream  do zliczania ile jest danego obiektu np
+        List<Car> carList = CarFactory.createRandomCars(5);
+
+        carsList.stream().collect(Collectors.groupingBy(Car::getEngine));
+
+        Map<String, List<Car>> collect = carList.stream().collect(Collectors.groupingBy(Car::getName));
+        carList.forEach(System.out::println);
+        collect.forEach((k, v) -> System.out.println("k = " + k + " : " + v.size()));
+
+
         System.out.println("==============Zadanie 13 ==================");
         Iterator<Car> iterator = carsList.iterator();
         Car lastCar = null;
@@ -104,7 +115,7 @@ public class ZadaniaNowe {
             iterator.remove(); // usuwamy ostatni samochód
         }
 
-        System.out.println("==============Zadanie 5 ==================");
+        System.out.println("==============Zadanie 12 ==================");
 
 
     }
