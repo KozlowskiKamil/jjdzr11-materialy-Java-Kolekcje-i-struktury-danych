@@ -94,8 +94,15 @@ public class ZadaniaNowe {
         Map<Integer, List<Car>> integerListMap = Zad12(carsList);
         System.out.println("integerListMap = " + integerListMap);
 
-        System.out.println("==============Zadanie 5 ==================");
-
+        System.out.println("==============Zadanie 13 ==================");
+        Iterator<Car> iterator = carsList.iterator();
+        Car lastCar = null;
+        while (iterator.hasNext()) {
+            lastCar = iterator.next();
+        }
+        if (lastCar != null) {
+            iterator.remove(); // usuwamy ostatni samochód
+        }
 
         System.out.println("==============Zadanie 5 ==================");
 
