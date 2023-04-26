@@ -10,13 +10,17 @@ import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Car;
 import com.infoshareacademy.model.Engine;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TransferQueue;
 
 public class JSON {
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) throws IOException {
         System.out.println("--------- Zadanie 17a JSON ------------");
         Engine engine = EngineFactory.generateEngine();
         System.out.println("engine = " + engine);
@@ -106,6 +110,8 @@ public class JSON {
         List<Engine> fromGSON = gson2.fromJson(toJsonList, type);
         fromGSON.forEach(System.out::println);
 
+        Path path = Path.of("src", "main", "resources", "engines.json");
+        Files.writeString(path, toJsonList);
 
     }
 }
