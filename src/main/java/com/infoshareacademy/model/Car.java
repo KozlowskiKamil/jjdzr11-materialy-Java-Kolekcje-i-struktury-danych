@@ -74,6 +74,9 @@ public class Car implements Comparable<Car> {
 
     @Override
     public int compareTo(Car o) {
-        return this.getColor().compareTo(o.getColor());
+        if (this.engine.getPower() > o.getEngine().getPower()) return 1;
+        else if (getEngine().getPower() < o.getEngine().getPower()) return -1;
+        else return 0;
+
     }
 }

@@ -1,10 +1,18 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.comparators.ComparatorCap;
+import com.infoshareacademy.comparators.ComparatorMaxSpeed;
 import com.infoshareacademy.factories.CarFactory;
 import com.infoshareacademy.factories.EngineFactory;
 import com.infoshareacademy.model.Car;
+import com.infoshareacademy.model.Color;
 import com.infoshareacademy.model.Engine;
 
+import javax.sound.midi.Patch;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -39,7 +47,7 @@ public class ZadaniaNowe {
         return engines1;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         List<Car> randomCars = CarFactory.createRandomCars(3);
         Car car1 = CarFactory.createRandomCar();
         Car car2 = CarFactory.createRandomCar();
@@ -87,22 +95,16 @@ public class ZadaniaNowe {
         System.out.println("stringCarMap = " + stringCarMap);
 
         Map<String, Car> stringCarMap1 = addCar(car1, car2, car3);
-        System.out. println("stringCarMap1 = " + stringCarMap1);
+        System.out.println("stringCarMap1 = " + stringCarMap1);
 
 
         System.out.println("==============Zadanie 12 ==================");
         List<Car> carsList = CarFactory.createRandomCars(4);
-        Map<Integer, List<Car>> integerListMap = Zad12(carsList);
-        System.out.println("integerListMap = " + integerListMap);
+//        Map<Integer, List<Car>> integerListMap = Zad12(carsList);
+//        System.out.println("integerListMap = " + integerListMap);
 
         //metoda na stream  do zliczania ile jest danego obiektu np
         List<Car> carList = CarFactory.createRandomCars(5);
-
-        carsList.stream().collect(Collectors.groupingBy(Car::getEngine));
-
-        Map<String, List<Car>> collect = carList.stream().collect(Collectors.groupingBy(Car::getName));
-        carList.forEach(System.out::println);
-        collect.forEach((k, v) -> System.out.println("k = " + k + " : " + v.size()));
 
 
         System.out.println("==============Zadanie 13 ==================");
@@ -115,12 +117,76 @@ public class ZadaniaNowe {
             iterator.remove(); // usuwamy ostatni samochód
         }
 
-        System.out.println("==============Zadanie 12 ==================");
+        System.out.println("==============Zadanie 12 druga metoda ==================");
+//        carsList.stream().collect(Collectors.groupingBy(Car::getEngine));
+
+        Map<String, List<Car>> collect = carList.stream().collect(Collectors.groupingBy(Car::getName));
+        carList.forEach(System.out::println);
+        collect.forEach((k, v) -> System.out.println("k = " + k + " : " + v.size()));
+
+        System.out.println("==============Zadanie Comparable  ==================");
+        List<Integer> integers = new ArrayList<>(List.of(4, 3, 1, 2, 5));
+        Collections.sort(integers);
+        System.out.println("integers = " + integers);
+
+        List<Engine> engineList = EngineFactory.generateEngines(5);
+        engineList.forEach(System.out::println);
+        System.out.println(engine1.compareTo(engine2));
+        Collections.sort(engineList);
+        engineList.forEach(System.out::println);
+
+
+        System.out.println("==============Zadanie 14  ==================");
+        carList.forEach(System.out::println);
+        System.out.println("---------");
+        Collections.sort(carList);
+        carList.forEach(System.out::println);
+
+        System.out.println("==============Zadanie Comparator  zad 15A ==================");
+        carList.stream().sorted().forEach(System.out::println);
+        System.out.println("");
+        carList.stream().sorted((c1, c2) -> c1.getColor().compareTo(c2.getColor())).forEach(System.out::println);
+        System.out.println("");
+        Collections.sort(carList);
+        carList.forEach(System.out::println);
+        System.out.println("");
+        Collections.sort(carList, (c1, c2) -> c2.getEngine().getPower().compareTo(c1.getEngine().getPower()));
+        carList.forEach(System.out::println);
+
+
+
+        System.out.println("==============Zadanie Comparator 15b ==================");
+        carList.forEach(System.out::println);
+        System.out.println("-----Capacity--------");
+        Collections.sort(carList, new ComparatorCap());
+        carList.forEach(System.out::println);
+        System.out.println("------Max speed-------");
+        Collections.sort(carList, new ComparatorMaxSpeed());
+        carList.forEach(System.out::println);
+
+
+        System.out.println("==============Zadanie Comparator 13a ==================");
+        Collections.sort(carList, (c1, c2) -> c1.getName().length() - c2.getName().length());
+        carList.forEach(System.out::println);
+
+        System.out.println("==============Zadanie propertise i path==================");
+        Path pathToFile = Path.of("src", "main", "resources", "config.properties");
+        Properties systemProps = System.getProperties();
+        System.out.println("systemProps = " + systemProps);
+
+        Properties confProp = new Properties();
+        confProp.load(new FileInputStream(pathToFile.toString()));
+        confProp.put("Show key", "No add and save");
+        confProp.setProperty("Kamil", "Add and Save");
+        System.out.println("confProp = " + confProp);
+        System.out.println("confProp.get(\"version\") = " + confProp.get("version"));
+        System.out.println("confProp.get(\"version\") = " + confProp.get("key"));
+
 
 
     }
 
-    public static Map<Integer, List<Car>> Zad12(List<Car> cars){
+    public static Map<Integer, List<Car>> Zad12(List<Car> cars) {
         Map<Integer, List<Car>> result = new HashMap<>();
         for (Car car : cars) {
             Integer key = car.getEngine().getCapacity();
@@ -128,7 +194,8 @@ public class ZadaniaNowe {
             List<Car> tempValue = result.get(key);
             tempValue.add(car);
             result.put(key, tempValue);
-        }return result;
+        }
+        return result;
 
     }
 
