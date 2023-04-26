@@ -106,12 +106,42 @@ public class JSON {
         String toJsonList = gson2.toJson(engineList1);
         System.out.println("toJsonList = " + toJsonList);
 
-        Type type = new TypeToken<List<Engine>>(){}.getType();
+        Type type = new TypeToken<List<Engine>>() {
+        }.getType();
         List<Engine> fromGSON = gson2.fromJson(toJsonList, type);
         fromGSON.forEach(System.out::println);
 
         Path path = Path.of("src", "main", "resources", "engines.json");
         Files.writeString(path, toJsonList);
+
+        System.out.println("--------- Zadanie 19a JSON ------------");
+        ObjectMapper objectMapper3 = new ObjectMapper();
+        String s = objectMapper3.writeValueAsString(engine1);
+        Path path1 = Path.of("src", "main", "resources", "enginZad.json");
+        //   Files.writeString(path1, s);
+
+        Engine zad19 = objectMapper3.readValue(Files.readString(path1), Engine.class);
+        System.out.println("zad19 = " + zad19);
+
+        System.out.println("--------- Zadanie 19b GSON ------------");
+        Engine[] arrayEng = new Engine[3];
+        arrayEng[0] = engine1;
+        arrayEng[1] = engine2;
+        arrayEng[2] = engine3;
+        ObjectMapper objectMapper4 = new ObjectMapper();
+        String s2 = objectMapper4
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(arrayEng);
+        Path path2 = Path.of("src", "main", "resources", "engi.json");
+        Files.writeString(path2, s2);
+
+        Engine[] zad19b = objectMapper4.readValue(Files.readString(path2), Engine[].class);
+        for (Engine en :
+                zad19b) {
+            System.out.println("en = " + en);
+        }
+
+        System.out.println("--------- Zadanie 20 GSON ------------");
 
     }
 }

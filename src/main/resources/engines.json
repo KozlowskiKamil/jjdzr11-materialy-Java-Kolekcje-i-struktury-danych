@@ -1,14 +1,14 @@
 [
   {
-    "power": 50,
+    "power": 190,
+    "capacity": 2000
+  },
+  {
+    "power": 190,
     "capacity": 3000
   },
   {
-    "power": 180,
-    "capacity": 4000
-  },
-  {
-    "power": 180,
-    "capacity": 3000
+    "power": 140,
+    "capacity": 1000
   }
 ]
